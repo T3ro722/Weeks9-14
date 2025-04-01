@@ -1,3 +1,5 @@
+
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +10,10 @@ public class Knight : MonoBehaviour
     Animator animator;
     SpriteRenderer sr;
     public bool canRun = true;
+
+    public CinemachineImpulseSource impulseSource;
+
+
     // Start is called before the first frame update
     void Start()
     {
