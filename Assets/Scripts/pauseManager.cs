@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+using TMPro;
 
 public class pauseManager : MonoBehaviour
 {
+    public TextMeshProUGUI pauseText;//declare pause text
     public UnityEvent OnPauseStart;
     public UnityEvent OnPauseEnd;
 
@@ -35,7 +38,15 @@ public class pauseManager : MonoBehaviour
         canPause = false;
         OnPauseStart.Invoke();  // notify others (like enemy,landmine)
 
-        yield return new WaitForSeconds(pauseDuration);
+        pauseText.gameObject.SetActive(true);  //Display text
+        float remaining = pauseDuration;
+        while (remaining > 0)
+        {
+            pauseText.text = "Paused: " + (int)remaining + "s";
+            remaining -= Time.deltaTime;
+            yield return null;
+        }
+        pauseText.gameObject.SetActive(false);
 
         // End pause
         isPaused = false;
