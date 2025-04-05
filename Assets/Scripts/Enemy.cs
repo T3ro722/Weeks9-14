@@ -11,7 +11,13 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //get PauseManager
+        pauseManager pauseManager = FindAnyObjectByType<pauseManager>();
+        if (pauseManager != null )
+        {
+            pauseManager.OnPauseStart.AddListener(onPauseStart);
+            pauseManager.OnPauseEnd.AddListener(OnPauseEnd);
+        }
     }
 
     // Update is called once per frame

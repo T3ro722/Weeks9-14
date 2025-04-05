@@ -35,6 +35,8 @@ public class pauseManager : MonoBehaviour
         canPause = false;
         OnPauseStart.Invoke();  // notify others (like enemy,landmine)
 
+        yield return new WaitForSeconds(pauseDuration);
+
         // End pause
         isPaused = false;
         OnPauseEnd.Invoke();
