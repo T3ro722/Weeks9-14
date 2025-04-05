@@ -7,6 +7,7 @@ public class PlayerMoveSystem : MonoBehaviour
     float moveSpeed = 5f;
     private pauseManager pause;
     public GameObject landminePrefab;
+    public bool powerUpActive = false;
     // Start is called before the first frame update
     void Start()
     {

@@ -56,4 +56,13 @@ public class Enemy : MonoBehaviour
     {
         isPaused = false;
     }
+    public void OnPowerupStart()
+    {
+        Debug.Log("Powerup started! Enemy can be killed by touch.");
+    }
+
+    public void OnPowerupEnd()
+    {
+        Debug.Log("Powerup ended! Enemy is back to normal.");
+    }
 }
