@@ -56,7 +56,11 @@ public class Landmine : MonoBehaviour
 
             if (killCount > 0)
             {
-                //ScoreSystem.Instance.AddPointWithLandmine(killCount);
+                ScoreSystem scoreSystem = FindObjectOfType<ScoreSystem>();
+                if (scoreSystem != null)
+                {
+                    scoreSystem.AddPointWithLandmine(killCount);
+                }
                 Destroy(gameObject);
             }
         }

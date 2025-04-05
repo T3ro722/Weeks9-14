@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Principal;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -18,6 +19,13 @@ public class Enemy : MonoBehaviour
             pauseManager.OnPauseStart.AddListener(onPauseStart);
             pauseManager.OnPauseEnd.AddListener(OnPauseEnd);
         }
+
+        //get player pos
+        PlayerMoveSystem playerScript = FindObjectOfType<PlayerMoveSystem>();
+        if (playerScript != null)
+        {
+            player = playerScript.transform;
+        }
     }
 
     // Update is called once per frame
@@ -25,8 +33,14 @@ public class Enemy : MonoBehaviour
     {
         if (!isPaused && player != null)
         {
+            //move towards player
             Vector3 direction = player.position - transform.position;
             transform.position += direction * moveSpeed * Time.deltaTime;
+
+            //math to identify if touches player
+            float dx = transform.position.x - player.position.x;
+            float dy = transform.position.y - player.position.y;
+            float dist = Mathf.Sqrt(dx * dx + dy * dy);
         }
     }
 
