@@ -35,12 +35,15 @@ public class Enemy : MonoBehaviour
         {
             //move towards player
             Vector3 direction = player.position - transform.position;
+            direction.x += Random.Range(-0.1f, 0.1f);
+            direction.y += Random.Range(-0.1f, 0.1f);
+            direction = direction.normalized;//add normalized to prevent them from following the same route
             transform.position += direction * moveSpeed * Time.deltaTime;
 
             //math to identify if touches player
             float dx = transform.position.x - player.position.x;
             float dy = transform.position.y - player.position.y;
-            float dist = Mathf.Sqrt(dx * dx + dy * dy);
+            float dist = Mathf.Sqrt(dx * dx + dy * dy);//pyth
         }
     }
 
