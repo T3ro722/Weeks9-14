@@ -8,6 +8,7 @@ using TMPro;
 public class pauseManager : MonoBehaviour
 {
     public TextMeshProUGUI pauseText;//declare pause text
+    public TextMeshProUGUI cooldownText;//declare cooldown text
     public UnityEvent OnPauseStart;
     public UnityEvent OnPauseEnd;
 
@@ -52,9 +53,18 @@ public class pauseManager : MonoBehaviour
         isPaused = false;
         OnPauseEnd.Invoke();
 
-        // Wait for cooldown before allowing next pause
-        yield return new WaitForSeconds(pauseCooldown);
+        // Cooldown display
+        cooldownText.gameObject.SetActive(true);//Display text
+        float cdRemaining = pauseCooldown;
+        while (cdRemaining > 0)
+        { //same function as pause
+            cooldownText.text = "Cooldown: " + Mathf.CeilToInt(cdRemaining) + "s";
+            cdRemaining -= Time.deltaTime;
+            yield return null;
+        }
+        //after CD
+        cooldownText.gameObject.SetActive(false);
+
         canPause = true;
     }
-
-}
+ }
