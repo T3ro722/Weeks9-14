@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerMoveSystem : MonoBehaviour
 {
     float moveSpeed = 5f;
-
+    private pauseManager pause;
+    public GameObject landminePrefab;
     // Start is called before the first frame update
     void Start()
     {
-     
+        pause = FindObjectOfType<pauseManager>();
     }
 
     // Update is called once per frame
@@ -35,5 +36,16 @@ public class PlayerMoveSystem : MonoBehaviour
         }
 
         transform.position = pos;
+
+        if (Input.GetKeyDown(KeyCode.E) && pause.isPaused)
+        {
+            PlaceLandmine();
+        }
+
+        void PlaceLandmine()
+        {
+            // place a landmine
+            Instantiate(landminePrefab, transform.position, Quaternion.identity);
+        }
     }
 }

@@ -15,8 +15,8 @@ public class pauseManager : MonoBehaviour
     public float pauseDuration = 3f;//3 sec pause time
     public float pauseCooldown = 5f;//5 sec cooldown
 
-    private bool isPaused = false;
-    private bool canPause = true;
+    public bool isPaused = false;
+    public bool canPause = true;
 
     // Start is called before the first frame update
     void Start()
