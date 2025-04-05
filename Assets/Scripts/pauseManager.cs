@@ -42,7 +42,7 @@ public class pauseManager : MonoBehaviour
         float remaining = pauseDuration;
         while (remaining > 0)
         {
-            pauseText.text = "Paused: " + (int)remaining + "s";
+            pauseText.text = "Paused: " + Mathf.CeilToInt(remaining) + "s";
             remaining -= Time.deltaTime;
             yield return null;
         }
