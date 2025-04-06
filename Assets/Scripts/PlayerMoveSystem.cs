@@ -8,6 +8,8 @@ public class PlayerMoveSystem : MonoBehaviour
     private pauseManager pause;
     public GameObject landminePrefab;
     public bool powerUpActive = false;
+   
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,7 @@ public class PlayerMoveSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.timeScale == 0f) return;
         Vector3 pos = transform.position;
 
         if (Input.GetKey(KeyCode.W))

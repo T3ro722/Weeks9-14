@@ -5,6 +5,7 @@ using UnityEngine;
 public class TitleScreenManager : MonoBehaviour
 {
     public GameObject title;
+    private bool gameStarted = false;
 
     // Start is called before the first frame update
     void Start()
@@ -16,11 +17,11 @@ public class TitleScreenManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (!gameStarted && Input.anyKeyDown)
         {
-            title.SetActive(false);
-            Time.timeScale = 1f;
-            Destroy(title);//detroy itself after in game
+            title.SetActive(false); // Hide title panel
+            Time.timeScale = 1f; // time to normal
+            gameStarted = true;
         }
     }
 }

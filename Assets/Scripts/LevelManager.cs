@@ -8,6 +8,8 @@ public class LevelManager : MonoBehaviour
 {
     public int enemyAliveCount;
     public bool isGameOver = false;
+    public bool gameStarted = false;
+    public GameObject titlePanel;
 
     public void OnEnemyKilled()
     {
@@ -16,6 +18,13 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("You win!");
         }
+    }
+
+    public void StartGame()
+    {
+        titlePanel.SetActive(false);
+        gameStarted = true;
+        Time.timeScale = 1f;
     }
 
     public void GameOver()
