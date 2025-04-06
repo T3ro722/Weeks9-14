@@ -10,10 +10,12 @@ public class Enemy : MonoBehaviour
     private bool isPaused = false;
     private PlayerMoveSystem playerScript;
     private ScoreSystem scoreSystem;
+    private Vector3 originalPosition;
 
     // Start is called before the first frame update
     void Start()
     {
+        originalPosition = transform.position;//initial pos
         //get PauseManager
         pauseManager pauseManager = FindAnyObjectByType<pauseManager>();
         if (pauseManager != null )
@@ -34,6 +36,8 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        LevelManager levelManager = FindObjectOfType<LevelManager>();
+        if (levelManager == null || !levelManager.gameStarted) return;
         if (Time.timeScale == 0f) return;
         if (!isPaused && player != null)
         {
@@ -74,7 +78,10 @@ public class Enemy : MonoBehaviour
 
 
     }
-
+    public void ResetEnemy()
+    {
+        transform.position = originalPosition;
+    }
     public void onPauseStart()
     {
         isPaused = true;

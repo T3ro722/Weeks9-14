@@ -60,20 +60,43 @@ public class LevelManager : MonoBehaviour
 
     public void ResetGame()
     {
+        gameStarted = false;
+        //Reset player
+        PlayerMoveSystem player = FindObjectOfType<PlayerMoveSystem>();
+        if (player != null)
+        {
+            player.ResetPlayer();
+            player.powerUpActive = false;
+        }
+
+        //reset enemies
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.ResetEnemy();
+        }
+
+        //reset game state
         isGameOver = false;
         gameStarted = false;
+        Debug.Log("Resetting TitleScreenManager.gameStarted = false");
         enemyAliveCount = FindObjectsOfType<Enemy>().Length;
 
+        //reset score
         ScoreSystem scoreSystem = FindObjectOfType<ScoreSystem>();
         if (scoreSystem != null)
         {
             scoreSystem.ResetScore();
         }
-        PlayerMoveSystem player = FindObjectOfType<PlayerMoveSystem>();
-        if (player != null)
+
+        //reset Titlescreen manager
+        TitleScreenManager titleManager = FindObjectOfType<TitleScreenManager>();
+        if (titleManager != null)
         {
-            player.powerUpActive = false;
+            titleManager.gameStarted = false;
         }
+
+
         winPanel.SetActive(false);
         losePanel.SetActive(false);
         titlePanel.SetActive(true);

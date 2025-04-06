@@ -8,17 +8,21 @@ public class PlayerMoveSystem : MonoBehaviour
     private pauseManager pause;
     public GameObject landminePrefab;
     public bool powerUpActive = false;
-   
+    private Vector3 originalPosition;
+
 
     // Start is called before the first frame update
     void Start()
     {
         pause = FindObjectOfType<pauseManager>();
+        originalPosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        LevelManager levelManager = FindObjectOfType<LevelManager>();
+        if (levelManager == null || !levelManager.gameStarted) return;
         if (Time.timeScale == 0f) return;
         Vector3 pos = transform.position;
 
@@ -51,5 +55,10 @@ public class PlayerMoveSystem : MonoBehaviour
             // place a landmine
             Instantiate(landminePrefab, transform.position, Quaternion.identity);
         }
+    }
+    public void ResetPlayer()
+    {
+        transform.position = originalPosition;
+        powerUpActive = false;
     }
 }
