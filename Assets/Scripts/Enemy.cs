@@ -60,12 +60,13 @@ public class Enemy : MonoBehaviour
                     }
 
                     Destroy(gameObject);
+                    FindObjectOfType<LevelManager>().OnEnemyKilled();
                 }
                 else
                 {
                     // Player dies
                     Debug.Log("Enemy touched player. Game Over.");
-                    // TODO: LevelManager.GameOver();
+                    FindObjectOfType<LevelManager>().GameOver();
                 }
             }
         }

@@ -33,4 +33,10 @@ public class ScoreSystem : MonoBehaviour
     {
         scoreText.text = "Score: " + score;
     }
+
+    public void ResetScore()
+    {
+        score = 0;
+        UpdateScoreDisplay();
+    }
 }

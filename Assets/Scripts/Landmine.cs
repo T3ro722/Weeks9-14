@@ -49,7 +49,7 @@ public class Landmine : MonoBehaviour
                 if (dist < explosionRadius)
                 {
                     Destroy(enemies[i].gameObject);
-                    //LevelManager.Instance.OnEnemyKilled();
+                    FindObjectOfType<LevelManager>().OnEnemyKilled();
                     killCount++;
                 }
             }
