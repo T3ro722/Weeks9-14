@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public float moveSpeed = 2f;
     private bool isPaused = false;
+    private PlayerMoveSystem playerScript;
+    private ScoreSystem scoreSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +23,12 @@ public class Enemy : MonoBehaviour
         }
 
         //get player pos
-        PlayerMoveSystem playerScript = FindObjectOfType<PlayerMoveSystem>();
+        playerScript = FindObjectOfType<PlayerMoveSystem>();
         if (playerScript != null)
         {
             player = playerScript.transform;
         }
+        scoreSystem = FindObjectOfType<ScoreSystem>();
     }
 
     // Update is called once per frame
@@ -44,7 +47,30 @@ public class Enemy : MonoBehaviour
             float dx = transform.position.x - player.position.x;
             float dy = transform.position.y - player.position.y;
             float dist = Mathf.Sqrt(dx * dx + dy * dy);//pyth
+
+            if (dist < 1.0f)
+            {
+                if (playerScript != null && playerScript.powerUpActive)
+                {
+                    // gets killed
+                    Debug.Log("Enemy touched player during powerup. Destroying enemy.");
+                    if (scoreSystem != null)
+                    {
+                        scoreSystem.AddPoint();
+                    }
+
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    // Player dies
+                    Debug.Log("Enemy touched player. Game Over.");
+                    // TODO: LevelManager.GameOver();
+                }
+            }
         }
+
+
     }
 
     public void onPauseStart()

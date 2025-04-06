@@ -22,6 +22,7 @@ public class Powerup : MonoBehaviour
 
         if (dist < 1.0f)
         {
+            Debug.Log("Touched player. Powerup status: " + player.powerUpActive);
             ActivatePowerup(player);
         }
     }
@@ -39,7 +40,6 @@ public class Powerup : MonoBehaviour
                 enemy.OnPowerupStart();
             }
 
-            Destroy(gameObject);
             StartCoroutine(PowerupTimer(player));
         }
     }
@@ -55,5 +55,7 @@ public class Powerup : MonoBehaviour
         {
             enemy.OnPowerupEnd();
         }
+        Debug.Log("Powerup ended!");
+        Destroy(gameObject);
     }
 }
