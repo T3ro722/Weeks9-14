@@ -48,8 +48,13 @@ public class Landmine : MonoBehaviour
 
                 if (dist < explosionRadius)
                 {
+                    // notify level manager
+                    LevelManager levelManager = FindObjectOfType<LevelManager>();
+                    if (levelManager != null)
+                    {
+                        levelManager.OnEnemyKilled();
+                    }
                     Destroy(enemies[i].gameObject);
-                    FindObjectOfType<LevelManager>().OnEnemyKilled();
                     killCount++;
                 }
             }

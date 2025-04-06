@@ -11,9 +11,16 @@ public class LevelManager : MonoBehaviour
     public bool gameStarted = false;
     public GameObject titlePanel;
 
+    void Start()
+    {
+        enemyAliveCount = FindObjectsOfType<Enemy>().Length;
+        Debug.Log("Enemy count at start: " + enemyAliveCount);
+    }
+
     public void OnEnemyKilled()
     {
         enemyAliveCount--;
+        Debug.Log("Enemy Count = " + enemyAliveCount);
         if (enemyAliveCount <= 0 )
         {
             Debug.Log("You win!");
@@ -25,6 +32,9 @@ public class LevelManager : MonoBehaviour
         titlePanel.SetActive(false);
         gameStarted = true;
         Time.timeScale = 1f;
+
+        enemyAliveCount = FindObjectsOfType<Enemy>().Length;
+        Debug.Log("Total enemies:" + enemyAliveCount);
     }
 
     public void GameOver()

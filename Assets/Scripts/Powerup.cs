@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
+    public TextMeshProUGUI powerupText;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,17 +47,26 @@ public class Powerup : MonoBehaviour
     }
     IEnumerator PowerupTimer(PlayerMoveSystem playerScript)
     {
-        yield return new WaitForSeconds(2f);
+        powerupText.gameObject.SetActive(true);
 
+        float countdown = 2f;
+        while (countdown > 0)
+        {
+            powerupText.text = "Powerup: " + countdown.ToString("F1") + "s";
+            yield return new WaitForSeconds(0.1f);
+            countdown -= 0.1f;
+        }
+
+        powerupText.gameObject.SetActive(false);
         playerScript.powerUpActive = false;
 
-        // announce enemies that powerup stops
+        // announce to enemy that powerup ended
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemies)
         {
             enemy.OnPowerupEnd();
         }
-        Debug.Log("Powerup ended!");
-        Destroy(gameObject);
+
+        Destroy(gameObject); // destroy powerup object
     }
 }
