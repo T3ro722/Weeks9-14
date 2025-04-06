@@ -10,6 +10,8 @@ public class LevelManager : MonoBehaviour
     public bool isGameOver = false;
     public bool gameStarted = false;
     public GameObject titlePanel;
+    public GameObject winPanel;
+    public GameObject losePanel;
 
     void Start()
     {
@@ -23,6 +25,7 @@ public class LevelManager : MonoBehaviour
         Debug.Log("Enemy Count = " + enemyAliveCount);
         if (enemyAliveCount <= 0 )
         {
+            WinGame();
             Debug.Log("You win!");
         }
     }
@@ -30,6 +33,8 @@ public class LevelManager : MonoBehaviour
     public void StartGame()
     {
         titlePanel.SetActive(false);
+        winPanel.SetActive(false);
+        losePanel.SetActive(false);
         gameStarted = true;
         Time.timeScale = 1f;
 
@@ -37,15 +42,26 @@ public class LevelManager : MonoBehaviour
         Debug.Log("Total enemies:" + enemyAliveCount);
     }
 
+    public void WinGame()
+    {
+        Debug.Log("You Win!");
+        isGameOver = true;
+        Time.timeScale = 0f;
+        winPanel.SetActive(true);
+    }
+
     public void GameOver()
     {
         Debug.Log("Game Over!");
         isGameOver = true;
+        Time.timeScale = 0f;
+        losePanel.SetActive(true);
     }
 
     public void ResetGame()
     {
         isGameOver = false;
+        gameStarted = false;
         enemyAliveCount = FindObjectsOfType<Enemy>().Length;
 
         ScoreSystem scoreSystem = FindObjectOfType<ScoreSystem>();
@@ -58,6 +74,10 @@ public class LevelManager : MonoBehaviour
         {
             player.powerUpActive = false;
         }
+        winPanel.SetActive(false);
+        losePanel.SetActive(false);
+        titlePanel.SetActive(true);
+
         Time.timeScale = 0f;//stops time
     }
 }
