@@ -43,8 +43,7 @@ public class Enemy : MonoBehaviour
         {
             //move towards player
             Vector3 direction = player.position - transform.position; // the direction enemy will head
-            direction.x += Random.Range(-0.1f, 0.1f);//random paths slightly to make enemies less dull
-            direction.y += Random.Range(-0.1f, 0.1f);
+
             direction = direction.normalized;//add normalized to prevent them from following the same route
             transform.position += direction * moveSpeed * Time.deltaTime;
 
