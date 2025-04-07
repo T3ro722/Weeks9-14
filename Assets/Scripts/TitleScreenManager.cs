@@ -20,7 +20,7 @@ public class TitleScreenManager : MonoBehaviour
     {
         Debug.Log("Update running. gameStarted: " + gameStarted);
 
-        if (!gameStarted && Input.anyKeyDown)
+        if (!gameStarted && Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Pressed a key to start!");
             title.SetActive(false); // Hide title panel

@@ -38,12 +38,12 @@ public class Enemy : MonoBehaviour
     {
         LevelManager levelManager = FindObjectOfType<LevelManager>();
         if (levelManager == null || !levelManager.gameStarted) return;
-        if (Time.timeScale == 0f) return;
+        if (Time.timeScale == 0f) return; //check conditions to proceed
         if (!isPaused && player != null)
         {
             //move towards player
-            Vector3 direction = player.position - transform.position;
-            direction.x += Random.Range(-0.1f, 0.1f);
+            Vector3 direction = player.position - transform.position; // the direction enemy will head
+            direction.x += Random.Range(-0.1f, 0.1f);//random paths slightly to make enemies less dull
             direction.y += Random.Range(-0.1f, 0.1f);
             direction = direction.normalized;//add normalized to prevent them from following the same route
             transform.position += direction * moveSpeed * Time.deltaTime;
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
             //math to identify if touches player
             float dx = transform.position.x - player.position.x;
             float dy = transform.position.y - player.position.y;
-            float dist = Mathf.Sqrt(dx * dx + dy * dy);//pyth
+            float dist = Mathf.Sqrt(dx * dx + dy * dy);//pyth for distance math
 
             if (dist < 1.0f)
             {
@@ -61,10 +61,10 @@ public class Enemy : MonoBehaviour
                     Debug.Log("Enemy touched player during powerup. Destroying enemy.");
                     if (scoreSystem != null)
                     {
-                        scoreSystem.AddPoint();
+                        scoreSystem.AddPoint();//check if game is playing, add point
                     }
 
-                    Destroy(gameObject);
+                    gameObject.SetActive(false);//set to false instead of destroy
                     FindObjectOfType<LevelManager>().OnEnemyKilled();
                 }
                 else
@@ -80,7 +80,8 @@ public class Enemy : MonoBehaviour
     }
     public void ResetEnemy()
     {
-        transform.position = originalPosition;
+        gameObject.SetActive(true);//revive enemy
+        transform.position = originalPosition;//back to OG pos
     }
     public void onPauseStart()
     {

@@ -70,11 +70,16 @@ public class LevelManager : MonoBehaviour
         }
 
         //reset enemies
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        Enemy[] enemies = FindObjectsOfType<Enemy>(true);
         foreach (Enemy enemy in enemies)
         {
             enemy.ResetEnemy();
         }
+
+        //Reset powerup
+        Powerup[]powerups = FindObjectsOfType<Powerup>(true);
+        foreach (Powerup powerup in powerups)
+        { powerup.ResetPowerup(); }
 
         //reset game state
         isGameOver = false;

@@ -54,7 +54,7 @@ public class Landmine : MonoBehaviour
                     {
                         levelManager.OnEnemyKilled();
                     }
-                    Destroy(enemies[i].gameObject);
+                    enemies[i].gameObject.SetActive(false);
                     killCount++;
                 }
             }

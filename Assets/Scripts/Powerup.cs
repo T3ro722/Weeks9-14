@@ -6,10 +6,11 @@ using UnityEngine;
 public class Powerup : MonoBehaviour
 {
     public TextMeshProUGUI powerupText;
+    private Vector3 originalPosition;
     // Start is called before the first frame update
     void Start()
     {
-        
+        originalPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -27,6 +28,12 @@ public class Powerup : MonoBehaviour
             Debug.Log("Touched player. Powerup status: " + player.powerUpActive);
             ActivatePowerup(player);
         }
+    }
+
+    public void ResetPowerup()
+    {
+        transform.position = originalPosition;
+        gameObject.SetActive(true);
     }
 
     void ActivatePowerup(PlayerMoveSystem player)
@@ -67,6 +74,6 @@ public class Powerup : MonoBehaviour
             enemy.OnPowerupEnd();
         }
 
-        Destroy(gameObject); // destroy powerup object
+        gameObject.SetActive(false); // turn off powerup
     }
 }
