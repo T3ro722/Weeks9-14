@@ -7,6 +7,7 @@ using TMPro;
 public class ScoreSystem : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI bonusText;
     public int score = 0;
 
     public void AddPoint()
@@ -20,6 +21,8 @@ public class ScoreSystem : MonoBehaviour
         if (killCount >= 2)
         {
             score += killCount * 2;
+            bonusText.gameObject.SetActive(true);
+            StartCoroutine(HideBonusText());
         }
         else
         {
@@ -27,6 +30,12 @@ public class ScoreSystem : MonoBehaviour
         }
 
         UpdateScoreDisplay();
+    }
+
+    IEnumerator HideBonusText()
+    {
+        yield return new WaitForSeconds(1f);
+        bonusText.gameObject.SetActive(false);
     }
 
     void UpdateScoreDisplay()

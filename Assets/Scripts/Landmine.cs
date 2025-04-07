@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Landmine : MonoBehaviour
 {
-    public float explosionRadius = 1f;
+    public float explosionRadius = 3f;
     private bool isActive = false;
 
     void OnEnable()
@@ -34,17 +34,19 @@ public class Landmine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isActive)
+        if (!isActive) return;
         {
             //detect enemy
-            Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
             int killCount = 0;
+            Enemy[] enemies = FindObjectsOfType<Enemy>();
 
-            for (int i = 0; i < enemies.Length; i++)
+
+            foreach (Enemy enemy in enemies)
             {
-                float dx = transform.position.x - enemies[i].transform.position.x;
-                float dy = transform.position.y - enemies[i].transform.position.y;
+                float dx = transform.position.x - enemy.transform.position.x;
+                float dy = transform.position.y - enemy.transform.position.y;
                 float dist = Mathf.Sqrt(dx * dx + dy * dy);
+            
 
                 if (dist < explosionRadius)
                 {
@@ -54,8 +56,9 @@ public class Landmine : MonoBehaviour
                     {
                         levelManager.OnEnemyKilled();
                     }
-                    enemies[i].gameObject.SetActive(false);
+              
                     killCount++;
+                    enemy.gameObject.SetActive(false);
                 }
             }
 
@@ -66,6 +69,7 @@ public class Landmine : MonoBehaviour
                 {
                     scoreSystem.AddPointWithLandmine(killCount);
                 }
+                Debug.Log("Got" + killCount + "enemies!");
                 Destroy(gameObject);
             }
         }
